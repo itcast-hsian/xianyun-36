@@ -1,6 +1,8 @@
 // 固定的写法，暴露出state
-export const state = {
-    userInfo: {}
+export const state = () => {
+    return {
+        userInfo: {}
+    }
 }
 
 // 存放的是同步修改state的方法

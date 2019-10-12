@@ -105,17 +105,52 @@ export default {
     },
     methods: {
         // 发送验证码
-        handleSendCaptcha(){
+        async handleSendCaptcha(){
 
+            if(!this.form.username){
+                this.$message.error("手机号码不能为空");
+                return;
+            }
+
+            const res = await this.$axios({
+                url: "/captchas",
+                method: "POST",
+                data: {
+                    tel: this.form.username // 手机号码
+                }
+            });
+
+            const {code} = res.data;
+            // 打印出手机的验证码
+            this.$message.success(`当前的手机验证码是：${code}`);
         },
-
 
         // 注册
         handleRegSubmit(){
           this.$refs.form.validate(async valid => {
               if(valid){
-                  // 请求注册的接口
                   
+                  // props是form里面除了checkPassword以外的属性
+                  const {checkPassword, ...props} = this.form
+
+                  // 请求注册的接口
+                  const res = await this.$axios({
+                      url: "/accounts/register",
+                      method: "POST",
+                      data: props
+                  })
+
+                  if(res.status === 200){
+					   this.$message.success("注册成功");
+
+					   // 跳转到首页
+                       this.$router.push("/")
+                    
+					   const data = res.data;
+					   
+                       // 把用户信息token保存到本地，在头部组件中显示用户数据
+                       this.$store.commit("user/setUserInfo", data);
+                   }
               }
           })
         }
