@@ -40,7 +40,9 @@
                     </span>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>个人中心</el-dropdown-item>
-                        <el-dropdown-item>退出</el-dropdown-item>
+                        <el-dropdown-item>
+                            <span @click="handleLogout">退出</span>
+                        </el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
 
@@ -52,7 +54,10 @@
 export default {
     methods: {
         // 用户退出
-        handleLogout(){},
+        handleLogout(){
+            // 清空用户数据
+            this.$store.commit("user/setUserInfo", {})
+        },
     }
 }
 </script>
