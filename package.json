@@ -15,7 +15,8 @@
     "element-ui": "^2.4.11",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {}
 }
