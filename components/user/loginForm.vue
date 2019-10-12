@@ -57,11 +57,21 @@ export default {
     methods: {
         // 提交登录
         handleLoginSubmit(){
-           this.$refs.form.validate(valid => {
+           this.$refs.form.validate(async valid => {
                // valid是表单验证的结果
                if(valid){
                    // 提交登录接口
-                   
+                   var res = await this.$axios({
+                       url: "/accounts/login",
+                       method: "POST",
+                       data: this.form
+                   })
+                
+                   if(res.status === 200){
+                       this.$message.success("登录成功");
+
+                       // this.$router.push("/")
+                   }
                }
            })
         }
