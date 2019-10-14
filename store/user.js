@@ -30,5 +30,18 @@ export const actions = {
         }
 
         return res;
+    },
+
+    // 发送手机验证码, tel是传入的手机号码
+    async sendCaptcha(store, tel){
+        const res = await this.$axios({
+            url: "/captchas",
+            method: "POST",
+            data: {
+                tel // 手机号码
+            }
+        });
+
+        return res;
     }
 }

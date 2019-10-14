@@ -112,13 +112,8 @@ export default {
                 return;
             }
 
-            const res = await this.$axios({
-                url: "/captchas",
-                method: "POST",
-                data: {
-                    tel: this.form.username // 手机号码
-                }
-            });
+            // 调用actions的方法
+            const res = await this.$store.dispatch("user/sendCaptcha", this.form.username);
 
             const {code} = res.data;
             // 打印出手机的验证码
