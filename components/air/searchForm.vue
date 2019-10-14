@@ -92,16 +92,25 @@ export default {
         // cb:回调函数，必须要调用，调用时候必须要传递一个数组的参数，
         // 数组中的元素必须是一个对象，对象中必须要有value属性
         queryDepartSearch(value, cb){
+            // 输入框为空时候不请求
+            if(!value) return;
             
             // 请求搜索建议城市
-            
+            this.$axios({
+                url: "/airs/city?name=" + value
+            }).then(res => {
 
-            // var arr = [
-            //     {value: "广州"},
-            //     {value: "广元"},
-            // ]
+                // data是后台返回的城市数组,没有value属性
+                const {data} = res.data;
+                // 循环给每一项添加value属性
+                const newData = data.map(v => {
+                    v.value = v.name.replace("市", ""); // 乌鲁市齐市
+                    return v;
+                })
 
-            cb(arr)
+                // 展示到下拉列表
+                cb(newData)
+            })
         },
 
         // 目标城市输入框获得焦点时触发
