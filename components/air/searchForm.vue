@@ -95,7 +95,12 @@ export default {
     methods: {
         // tab切换时触发
         handleSearchTab(item, index){
-            
+            if(index === 1){
+                this.$alert('目前不支持往返', '提示', {
+                    confirmButtonText: '确定',
+                    type: "warning" 
+                });
+            }
         },
         
         // 出发城市输入框值发生变化时候会触发
@@ -181,7 +186,13 @@ export default {
 
         // 触发和目标城市切换时触发
         handleReverse(){
-            
+            const {departCity, departCode, destCity, destCode} = this.form;
+
+            this.form.departCity = destCity;
+            this.form.departCode = destCode;
+
+            this.form.destCity = departCity;
+            this.form.destCode = departCode;
         },
 
         // 提交表单是触发
