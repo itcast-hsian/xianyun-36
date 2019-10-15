@@ -1,6 +1,7 @@
 <template>
     <div class="flight-item">
         <div>
+
             <!-- 显示的机票信息 -->
             <el-row type="flex" align="middle" class="flight-info">
                 <el-col :span="6">
@@ -26,12 +27,18 @@
                 </el-col>
             </el-row>
         </div>
+
         <div class="flight-recommend">
             <!-- 隐藏的座位信息列表 -->
             <el-row type="flex"  justify="space-between" align="middle">
                 <el-col :span="4">低价推荐</el-col>
                 <el-col :span="20">
-                    <el-row type="flex" justify="space-between" align="middle" class="flight-sell">
+                    <!-- 需要循环显示的座位信息 -->
+                    <el-row 
+                    type="flex" 
+                    justify="space-between" 
+                    align="middle" 
+                    class="flight-sell">
                         <el-col :span="16" class="flight-sell-left">
                             <span>经济舱</span> | 上海一诺千金航空服务有限公司
                         </el-col>
