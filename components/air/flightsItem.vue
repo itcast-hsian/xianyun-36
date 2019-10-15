@@ -1,7 +1,6 @@
 <template>
     <div class="flight-item">
-        <div>
-
+        <div @click="isShow = !isShow">
             <!-- 显示的机票信息 -->
             <el-row type="flex" align="middle" class="flight-info">
                 <el-col :span="6">
@@ -28,7 +27,7 @@
             </el-row>
         </div>
 
-        <div class="flight-recommend">
+        <div class="flight-recommend" v-if="isShow">
             <!-- 隐藏的座位信息列表 -->
             <el-row type="flex"  justify="space-between" align="middle">
                 <el-col :span="4">低价推荐</el-col>
@@ -64,6 +63,12 @@
 
 <script>
 export default {
+    data(){
+        return {
+            // 是否展开座位列表信息
+            isShow: false
+        }
+    },
     // 计算属性，监听组件内容引用的实例的属性的变化
     computed: {
         rankTime(){
