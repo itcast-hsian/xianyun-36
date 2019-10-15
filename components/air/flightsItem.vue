@@ -5,25 +5,25 @@
             <!-- 显示的机票信息 -->
             <el-row type="flex" align="middle" class="flight-info">
                 <el-col :span="6">
-                    <span>{{item.airline_name}} </span> MU5316
+                    <span>{{item.airline_name}} </span> {{item.flight_no}}
                 </el-col>
                 <el-col :span="12">
                     <el-row type="flex" justify="space-between" class="flight-info-center">
                         <el-col :span="8" class="flight-airport">
-                            <strong>20:30</strong>
-                            <span>白云机场T1</span>
+                            <strong>{{item.dep_time}}</strong>
+                            <span>{{item.org_airport_name}} {{item.org_airport_quay}}</span>
                         </el-col>
                         <el-col :span="8" class="flight-time">
                             <span>2时20分</span>
                         </el-col>
                         <el-col :span="8" class="flight-airport">
-                            <strong>22:50</strong>
-                            <span>虹桥机场T2</span>
+                            <strong>{{item.arr_time}}</strong>
+                            <span>{{item.dst_airport_name}} {{item.dst_airport_quay}}</span>
                         </el-col>
                     </el-row>
                 </el-col>
                 <el-col :span="6" class="flight-info-right">
-                    ￥<span class="sell-price">810</span>起
+                    ￥<span class="sell-price">{{item.base_price / 2}}</span>起
                 </el-col>
             </el-row>
         </div>
@@ -38,12 +38,14 @@
                     type="flex" 
                     justify="space-between" 
                     align="middle" 
-                    class="flight-sell">
+                    class="flight-sell"
+                    v-for="(seat, index) in item.seat_infos"
+                    :key="index">
                         <el-col :span="16" class="flight-sell-left">
-                            <span>经济舱</span> | 上海一诺千金航空服务有限公司
+                            <span>{{seat.name}}</span> | {{seat.supplierName}}
                         </el-col>
                         <el-col :span="5" class="price">
-                            ￥1345
+                            ￥{{seat.org_settle_price}}
                         </el-col>
                         <el-col :span="3" class="choose-button">
                             <el-button 
@@ -51,7 +53,7 @@
                             size="mini">
                             选定
                             </el-button>
-                            <p>剩余：83</p>
+                            <p>剩余：{{seat.discount}}</p>
                         </el-col>
                     </el-row>
                 </el-col>
