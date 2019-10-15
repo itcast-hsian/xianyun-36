@@ -18,6 +18,16 @@
                 v-for="(item, index) in flightsData.flights"
                 :key="index"
                 :item="item"/>
+
+                <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="pageIndex"
+                :page-sizes="[5, 10, 15, 20]"
+                :page-size="pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="flightsData.total">
+                </el-pagination>
             </div>
 
             <!-- 侧边栏 -->
@@ -37,13 +47,30 @@ export default {
     data(){
         return {
             // 请求机票列表返回的总数据，包含了flights,info, options,total
-            flightsData: {}
+            flightsData: {},
+
+            // 当前的页数
+            pageIndex: 1,
+            // 当前的条数
+            pageSize: 5,
         }
     },
 
     components: {
         FlightsListHead,
         FlightsItem
+    },
+
+    methods: {
+        // 分页条数切换时候触发, val是当前的条数
+        handleSizeChange(val){
+
+        },
+
+        // 页数切换时候触发, val是当前的页数
+        handleCurrentChange(val){
+
+        }
     },
 
     mounted(){
