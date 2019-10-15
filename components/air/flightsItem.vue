@@ -5,7 +5,7 @@
             <!-- 显示的机票信息 -->
             <el-row type="flex" align="middle" class="flight-info">
                 <el-col :span="6">
-                    <span>东航 </span> MU5316
+                    <span>{{item.airline_name}} </span> MU5316
                 </el-col>
                 <el-col :span="12">
                     <el-row type="flex" justify="space-between" class="flight-info-center">
@@ -63,11 +63,13 @@
 <script>
 export default {
 
+    // props除了可以使用数组之外，还可以使用对象
     props: {
-        // 数据
-        data: {
+        // item是声明组件可以接受item属性
+        item: {
+            // 声明item的类型
             type: Object,
-            // 默认是空数组
+            // 如果用户不传，采取默认值!!!!
             default: {}
         }
     }
