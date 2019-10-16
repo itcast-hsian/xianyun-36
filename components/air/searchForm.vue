@@ -233,7 +233,10 @@ export default {
             this.$router.push({
                 path: "/air/flights",
                 query: this.form
-            })
+            });
+
+            // 保存到store
+            this.$store.commit("air/setHistory", this.form);
         }
     },
     mounted() {
