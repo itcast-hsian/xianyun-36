@@ -103,7 +103,7 @@ export default {
                 return v.org_airport_name === value;
             })
 
-            // 修改列表数据的
+            // 修改列表数据
             this.$emit("setDataList", arr);
         },
 
@@ -119,7 +119,7 @@ export default {
                 return start >= +arr[0] && start < +arr[1];
             })
 
-            // 修改列表数据的
+            // 修改列表数据
             this.$emit("setDataList", arr2);
         },
 
@@ -130,18 +130,30 @@ export default {
                 return v.airline_name === value;
             })
 
-            // 修改列表数据的
+            // 修改列表数据
             this.$emit("setDataList", arr);
         },
 
          // 选择机型时候触发
         handleAirSize(value){
-           
+           // 根据value过滤列表，只保留当前符合条件的机票列表
+            const arr = this.data.flights.filter(v => {
+                return v.plane_size === value;
+            })
+
+            // 修改列表数据
+            this.$emit("setDataList", arr);
         },
         
         // 撤销条件时候触发
         handleFiltersCancel(){
-            
+            this.airport = "";
+            this.flightTimes = "";
+            this.company = "";
+            this.airSize = "";
+
+            // 传递没有修改的列表数据
+            this.$emit("setDataList", this.data.flights);
         },
     }
 }
