@@ -86,6 +86,9 @@
                 <el-button type="warning" class="submit" @click="handleSubmit">提交订单</el-button>
             </div>
         </div>
+
+        <!-- 调用总价格，让computed会执行 -->
+        <span v-show="false">{{allPrice}}</span>
     </div>
 </template>
 
@@ -107,6 +110,16 @@ export default {
             contactPhone: "", // 联系电话
             captcha: "", // 验证码
             invoice: false, // 发票，写死
+        }
+    },
+
+    computed: {
+        // 计算总价格
+        allPrice(){
+            // 把总价格传递给父组件
+            this.$emit("getAllPrice", 2);
+
+            return 2;
         }
     },
 
