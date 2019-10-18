@@ -64,6 +64,9 @@
 </template>
 
 <script>
+// 导入计算的方法
+import {computeTime} from "@/utils/utils"
+
 export default {
     data(){
         return {
@@ -74,28 +77,7 @@ export default {
     // 计算属性，监听组件内容引用的实例的属性的变化
     computed: {
         rankTime(){
-            const arrTime = this.item.arr_time.split(":"); // 14: 10 = [14, 10]
-            const depTime = this.item.dep_time.split(":"); // 12: 30 = [12, 30]
-
-            // 第二天
-            if(arrTime[0] < depTime[0]){
-                arrTime[0] += 24;
-            }
-
-            // 到达时间的分钟
-            const end = arrTime[0] * 60 + (+arrTime[1]);
-            // 出发时间的分钟
-            const start = depTime[0] * 60 + (+depTime[1]);
-            // 相隔的分钟
-            const dis = end - start;
-            
-
-            // 小时
-            const hours =  Math.floor(dis / 60);
-            // 分钟
-            const min = dis % 60;
-
-            return `${hours}小时${min}分钟`;
+            return computeTime(this.item.arr_time, this.item.dep_time);
         }
     },
 
