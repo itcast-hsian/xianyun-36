@@ -116,10 +116,24 @@ export default {
     computed: {
         // 计算总价格
         allPrice(){
-            // 把总价格传递给父组件
-            this.$emit("getAllPrice", 2);
+            // 如果接口还没请求回来，直接返回
+            if(!this.detail.seat_infos) return;
 
-            return 2;
+            // 总价格初始值
+            let price = 0;
+            // 加上单价
+            price += this.detail.seat_infos.org_settle_price,
+            // 燃油费
+            price += this.detail.airport_tax_audlet;
+            // 保险
+            price += this.insurances.length * 30
+            // 人数
+            price *= this.users.length;
+
+            // 把总价格传递给父组件
+            this.$emit("getAllPrice", price);
+
+            return price;
         }
     },
 
@@ -195,7 +209,17 @@ export default {
                     Authorization: `Bearer ${this.$store.state.user.userInfo.token}`
                 }
             }).then(res => {
-                console.log(res)
+                const {data, message} = res.data;
+
+                this.$message.success(message)
+
+                // 跳转到付款页 /air/pay?id=505
+                this.$router.push({
+                    path: '/air/pay',
+                    query: {
+                        id: data.id
+                    }
+                })
             })
         }
     },
