@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <!-- <script src="/qrcode.js"></script> -->
+        <script src="/qrcode.js"></script>
+
         <div class="main">
             <div class="pay-title">
                 支付总金额 <span class="pay-price">￥ {{ order.price }}</span>
@@ -14,7 +15,9 @@
                     <div class="qrcode">
 
                         <!-- 二维码 -->
-                        <canvas id="qrcode-stage"></canvas>
+                        <!-- <canvas id="qrcode-stage"></canvas> -->
+
+                        <div id="qrcode"></div>
 
                         <p>请使用微信扫一扫</p>
                         <p>扫描二维码支付</p>
@@ -50,6 +53,8 @@ export default {
                 }
             }).then(res => {
                 this.order = res.data;
+
+                new QRCode(document.getElementById("qrcode"), this.order.payInfo.code_url);
             })
         }, 10) 
     }
